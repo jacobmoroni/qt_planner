@@ -1,0 +1,15 @@
+obstacles: {buffer_size: 0.15, obstacle_size: 0.05, unknown_as_obstacles: false}
+ros: {grid_map_topic: /rtabmap/grid_map, tf_from: /map, tf_reference_frame: 1, tf_to: /base_link}
+rosdistro: 'kinetic
+
+  '
+roslaunch:
+  uris: {host_10_32_114_103___40367: 'http://10.32.114.103 :40367/', host_10_32_114_103___40447: 'http://10.32.114.103
+      :40447/', host_10_32_114_103___40879: 'http://10.32.114.103 :40879/'}
+rosversion: '1.12.14
+
+  '
+rrt: {boundary_buffer: 2.0, expand_distance: 0.5, goal_sample_rate: 50, timeout: 5000}
+run_id: e59fadd0-ffe4-11e8-9dfe-a0d3c1214f21
+waypoint_manager: {check_path_frequency: 5.0, position_threshold: 0.5, threshold2d: true,
+  threshold_2d: true, yaw_threshold: 0.523599}

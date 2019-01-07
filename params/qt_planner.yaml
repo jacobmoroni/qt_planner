@@ -1,0 +1,26 @@
+waypoint_manager: {
+  position_threshold: 0.5,
+  yaw_threshold: 0.523599,
+  threshold_2d: true,
+  check_path_frequency: 5
+}
+
+obstacles: {
+  buffer_size: 0.8,
+  obstacle_size: 0.1,
+  unknown_as_obstacles: false
+}
+
+rrt: {
+  timeout: 5000,
+  goal_sample_rate: 50,
+  expand_distance: 0.5,
+  boundary_buffer: 2
+}
+
+ros: {
+  grid_map_topic: "/rtabmap/grid_map",
+  tf_from: "/world",
+  tf_to: "/base_link",
+  tf_reference_frame: 0 #0=NED, 1=NWU
+}
