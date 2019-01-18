@@ -110,11 +110,11 @@ void QNode::setParametersFromFile(std::string param_file)
 bool QNode::initROSCommunication(std::string grid_map_topic)
 {
   ros::init(init_argc,init_argv,"qt_planner");
-  if (robot_listener !=nullptr)
-  {
-    delete robot_listener;
-    robot_listener = nullptr;
-  }
+  //if (robot_listener !=nullptr)
+  //{
+    //delete robot_listener;
+    //robot_listener = nullptr;
+  //}
 
   if ( ! ros::master::check() )
   {
