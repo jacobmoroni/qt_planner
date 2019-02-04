@@ -2,6 +2,7 @@
 #define STATE_HPP
 
 #include "obstaclemap.hpp"
+#include "waypoint.hpp"
 
 struct Position
 {
@@ -28,11 +29,13 @@ struct State {
     delete position;
     delete obstacles;
     delete goal_point;
+    delete current_waypoint;
   }
 
   Position *position{new Position};
   ObstacleMap *obstacles{new ObstacleMap};
   GoalPoint *goal_point{new GoalPoint};
+  Waypoint *current_waypoint{new Waypoint};
 };
 
 #endif // STATE_HPP

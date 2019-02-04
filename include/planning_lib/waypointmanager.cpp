@@ -9,6 +9,7 @@ WaypointManager::WaypointManager(Settings* settings, State *state):
   m_settings{settings},
   m_state{state}
 {
+  m_state->current_waypoint = &m_default_waypoint;
 }
 
 WaypointManager::~WaypointManager()

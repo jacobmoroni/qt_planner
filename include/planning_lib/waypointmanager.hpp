@@ -37,7 +37,7 @@ protected:
   Settings* m_settings;
   State* m_state;
   std::vector<Waypoint> m_waypoints{};
-  Waypoint m_default_waypoint{0, 0, -1.3, 0, .5};
+  Waypoint m_default_waypoint{0, 0, -0.5, 0, .5};
 };
 
 #endif // WAYPOINTMANAGER_HPP
