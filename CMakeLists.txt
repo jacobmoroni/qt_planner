@@ -5,7 +5,7 @@ project(qt_planner)
 find_package(Qt5Widgets)
 find_package(Qt5Gui)
 find_package(Qt5Core)
-find_package(catkin REQUIRED COMPONENTS qt_build roscpp tf rosflight_msgs)
+find_package(catkin REQUIRED COMPONENTS roscpp tf rosflight_msgs)
 
 get_target_property(QtCore_location Qt5::Core LOCATION)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}
