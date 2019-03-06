@@ -5,8 +5,8 @@
 
 WaypointManagerSettings::WaypointManagerSettings(QWidget *parent , Settings *settings) :
   QDialog{parent},
-  m_settings{settings},
-  ui{new Ui::WaypointManagerSettings}
+  ui{new Ui::WaypointManagerSettings},
+  m_settings{settings}
 {
   ui->setupUi(this);
   ui->threshold2DCheckbox->setChecked(m_settings->waypoint_manager->threshold_2d);

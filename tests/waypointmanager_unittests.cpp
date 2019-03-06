@@ -4,6 +4,7 @@
 #include "settings.hpp"
 #include "state.hpp"
 #include "waypoint.hpp"
+#pragma clang diagnostic ignored "-Wweak-vtables"
 
 class WaypointManagerTest : public WaypointManager, public ::testing::Test
 {
@@ -51,7 +52,7 @@ TEST_F(WaypointManagerTest, whenAddingWaypointsFromPath_AddedWaypointsAreCorrect
   Waypoint golden_waypoint5{-5,-5,m_state->goal_point->down,0,m_settings->waypoint_manager->position_threshold};
 
   std::vector<Waypoint> golden_waypoints{golden_waypoint1, golden_waypoint2, golden_waypoint3, golden_waypoint4, golden_waypoint5};
-  for (int i{0}; i<golden_waypoints.size(); i++)
+  for (unsigned int i{0}; i<golden_waypoints.size(); i++)
   {
     EXPECT_TRUE(expectNearWaypoint(golden_waypoints[i], m_waypoints[i], 0.0001));
   }
@@ -120,7 +121,7 @@ TEST_F(WaypointManagerTest, whenWaypointThresholdIsReached_WaypointIsRemoved)
   m_state->position->yaw = 0;
   Waypoint test_waypoint1{getCurrentWaypoint()};
   Waypoint golden_waypoint1{1, 5, m_state->goal_point->down, 1.3734, m_settings->waypoint_manager->position_threshold};
-  int waypoint_num1{(int) m_waypoints.size()};
+  int waypoint_num1{static_cast<int>(m_waypoints.size())};
   int golden_waypoint_num1{5};
 
   m_state->position->north = 1;
@@ -129,7 +130,7 @@ TEST_F(WaypointManagerTest, whenWaypointThresholdIsReached_WaypointIsRemoved)
   m_state->position->yaw = 1.3734;
   Waypoint test_waypoint2{getCurrentWaypoint()};
   Waypoint golden_waypoint2{7, 5, m_state->goal_point->down, 0, m_settings->waypoint_manager->position_threshold};
-  int waypoint_num2{(int) m_waypoints.size()};
+  int waypoint_num2{static_cast<int>(m_waypoints.size())};
   int golden_waypoint_num2{4};
 
   EXPECT_TRUE(expectNearWaypoint(test_waypoint1, golden_waypoint1, 0.0001));

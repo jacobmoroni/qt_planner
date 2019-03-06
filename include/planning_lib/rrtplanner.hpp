@@ -33,7 +33,7 @@ protected:
   std::vector<double> sampleNextPoint();
   double generateRandomDouble(double min_value, double max_value);
   RRTNode generateNewNode();
-  int getNearestNodeIndex(std::vector<double> point);
+  unsigned int getNearestNodeIndex(std::vector<double> point);
   bool checkForPointCollision(std::vector<double> point);
   void expandTreeOneTime();
 

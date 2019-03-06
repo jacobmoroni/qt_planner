@@ -19,7 +19,7 @@ WaypointManager::~WaypointManager()
 void WaypointManager::generateWaypointsFromPath(std::vector<std::vector<double> > &path)
 {
   Waypoint waypoint;
-  for (int i{1}; i<path.size(); i++)
+  for (unsigned int i{1}; i<path.size(); i++)
   {
     waypoint.setNorth(path[i][0]);
     waypoint.setEast(path[i][1]);
@@ -81,6 +81,10 @@ bool WaypointManager::checkWaypointThreshold(Waypoint waypoint)
     if (yaw_diff<m_settings->waypoint_manager->yaw_threshold)
     {
       return true;
+    }
+    else
+    {
+      return false;
     }
   }
   else

@@ -62,7 +62,9 @@ void QNode::saveParametersToFile(std::string param_file)
   command<<"rosparam dump "<<param_file<<" qt_planner"<<std::endl;
   const std::string tmp{command.str()};
   const char* cstr{tmp.c_str()};
-  bool success{system(cstr)};
+  int success{system(cstr)};
+  if (success == 1)
+    log(Info, "Falied to load file");
 
   std::stringstream log_msg;
   log_msg<<"Saved parameter file to: "<<param_file;
@@ -76,7 +78,9 @@ void QNode::setParametersFromFile(std::string param_file)
   command<<"rosparam load "<<param_file<<std::endl;
   const std::string tmp{command.str()};
   const char* cstr{tmp.c_str()};
-  bool success{system(cstr)};
+  int success{system(cstr)};
+  if (success == 1)
+    log(Info, "Falied to load file");
   if (!ros::param::get("/waypoint_manager/position_threshold",m_settings->waypoint_manager->position_threshold))
   {
     log(Warn,"Failed to load paramaters from file");
@@ -143,7 +147,7 @@ void QNode::updateRobotTransform()
   }
   catch (tf::TransformException ex)
   {
-    log(Warn, ("%s", ex.what()));
+    log(Warn, (static_cast<std::string>(ex.what())));
     ros::Duration(1.0).sleep();
   }
   double roll{0};
@@ -172,7 +176,7 @@ void QNode::run()
     updateRobotTransform();
 
     emit requestCurrentWaypoint();
-    if (counter%((int) (m_settings->waypoint_manager->check_path_frequency*16)) == 0)
+    if (counter%(static_cast<int>(m_settings->waypoint_manager->check_path_frequency*16)) == 0)
       emit checkPath();
     broadcastCurrentWaypoint();
     waypoint_publisher.publish(m_current_waypoint);
@@ -246,10 +250,10 @@ std::string QNode::getOccupancyGridTopics()
 
 void QNode::updateWaypoint(Waypoint current_waypoint)
 {
-  m_current_waypoint.x = current_waypoint.getNorth();
-  m_current_waypoint.y = current_waypoint.getEast();
-  m_current_waypoint.F = current_waypoint.getDown();
-  m_current_waypoint.z = current_waypoint.getYaw();
+  m_current_waypoint.x = static_cast<float>(current_waypoint.getNorth());
+  m_current_waypoint.y = static_cast<float>(current_waypoint.getEast());
+  m_current_waypoint.F = static_cast<float>(current_waypoint.getDown());
+  m_current_waypoint.z = static_cast<float>(current_waypoint.getYaw());
   m_waypoint = current_waypoint;
 }
 

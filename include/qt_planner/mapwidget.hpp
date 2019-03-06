@@ -15,16 +15,16 @@ public:
   explicit MapWidget(QWidget *parent = nullptr,
                      Helper *helper = nullptr,
                      State *state = nullptr);
-  ~MapWidget();
+  ~MapWidget() override;
   void setUnknownAsObstacles(bool new_value);
 
 protected:
   void paintEvent(QPaintEvent *event) override;
-  void resizeEvent(QResizeEvent *);
-  void mouseMoveEvent(QMouseEvent *event);
-  void mousePressEvent(QMouseEvent *event);
-  void mouseReleaseEvent(QMouseEvent *event);
-  void wheelEvent(QWheelEvent *event);
+  void resizeEvent(QResizeEvent *) override;
+  void mouseMoveEvent(QMouseEvent *event) override;
+  void mousePressEvent(QMouseEvent *event) override;
+  void mouseReleaseEvent(QMouseEvent *event) override;
+  void wheelEvent(QWheelEvent *event) override;
   unsigned int getMouseButtonNumber(QMouseEvent* event);
 
 signals:

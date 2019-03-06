@@ -7,6 +7,7 @@
 #include "settings.hpp"
 #include "state.hpp"
 #include <nav_msgs/OccupancyGrid.h>
+#pragma clang diagnostic ignored "-Wweak-vtables"
 
 class TestRRTPlanner : public RRTPlanner, public ::testing::Test
 {
@@ -178,11 +179,11 @@ TEST_F(TestRRTPlanner, whenCheckingNearestNode_NodeIsCorrect)
   sampleNextPoint();
   std::vector<double> point2{sampleNextPoint()};
 
-  int point1_nearest_node{getNearestNodeIndex(point1)};
-  int golden_nearest_node1{0};
+  unsigned int point1_nearest_node{getNearestNodeIndex(point1)};
+  unsigned int golden_nearest_node1{0};
 
-  int point2_nearest_node{getNearestNodeIndex(point2)};
-  int golden_nearest_node2{0};
+  unsigned int point2_nearest_node{getNearestNodeIndex(point2)};
+  unsigned int golden_nearest_node2{0};
 
   EXPECT_EQ(golden_nearest_node1, point1_nearest_node);
   EXPECT_EQ(golden_nearest_node2, point2_nearest_node);

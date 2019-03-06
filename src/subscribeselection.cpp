@@ -14,8 +14,8 @@ SubscribeSelection::SubscribeSelection(QWidget *parent,
                                        std::string gridmap_topics,
                                        Settings *settings) :
   QDialog{parent},
-  m_settings{settings},
-  ui{new Ui::SubscribeSelection}
+  ui{new Ui::SubscribeSelection},
+  m_settings{settings}
 {
   ui->setupUi(this);
   addGridmapTopicsToComboBox(gridmap_topics);

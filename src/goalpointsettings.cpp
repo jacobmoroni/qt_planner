@@ -6,8 +6,8 @@
 
 GoalPointSettings::GoalPointSettings(QWidget *parent, State *state) :
   QWidget{parent},
-  m_state{state},
-  ui{new Ui::GoalPointSettings}
+  ui{new Ui::GoalPointSettings},
+  m_state{state}
 {
   ui->setupUi(this);
   showCurrentWaypoint();

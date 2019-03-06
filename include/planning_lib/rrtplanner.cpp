@@ -104,12 +104,12 @@ void RRTPlanner::initializeTree()
   updateBoundaries();
 }
 
-int RRTPlanner::getNearestNodeIndex(std::vector<double> point)
+unsigned int RRTPlanner::getNearestNodeIndex(std::vector<double> point)
 {
   double distance_min{10000};
   double distance{0};
-  int nearest_index{0};
-  for (int i{0}; i<m_tree.size(); i++)
+  unsigned int nearest_index{0};
+  for (unsigned int i{0}; i<static_cast<unsigned int>(m_tree.size()); i++)
   {
    distance = pow((m_tree[i].getX()-point[0]),2) + pow((m_tree[i].getY()-point[1]),2);
    if (distance < distance_min)
@@ -124,7 +124,7 @@ int RRTPlanner::getNearestNodeIndex(std::vector<double> point)
 RRTNode RRTPlanner::generateNewNode()
 {
   std::vector<double> new_point{sampleNextPoint()};
-  int nearest_node_index{getNearestNodeIndex(new_point)};
+  unsigned int nearest_node_index{getNearestNodeIndex(new_point)};
   double atan_y{new_point[1]-m_tree[nearest_node_index].getY()};
   double atan_x{new_point[0]-m_tree[nearest_node_index].getX()};
   double angle_to_point{atan2(atan_y, atan_x)};
@@ -132,7 +132,7 @@ RRTNode RRTPlanner::generateNewNode()
 
   new_node.setX(new_node.getX()+m_settings->rrt->expand_distance*cos(angle_to_point));
   new_node.setY(new_node.getY()+m_settings->rrt->expand_distance*sin(angle_to_point));
-  new_node.setParent(nearest_node_index);
+  new_node.setParent(static_cast<int>(nearest_node_index));
 
   return new_node;
 }
@@ -157,7 +157,7 @@ void RRTPlanner::expandTreeOneTime()
 {
   RRTNode new_node{generateNewNode()};
   std::vector<double> new_point{new_node.getX(), new_node.getY()};
-  std::vector<double> parent_point{m_tree[new_node.getParent()].getX(), m_tree[new_node.getParent()].getY()};
+  std::vector<double> parent_point{m_tree[static_cast<unsigned int>(new_node.getParent())].getX(), m_tree[static_cast<unsigned int>(new_node.getParent())].getY()};
   if (!checkForLineCollision(new_point, parent_point))
   {
     m_tree.push_back(new_node);
@@ -194,7 +194,7 @@ bool RRTPlanner::expandTreeToGoal()
     node = m_tree.back();
     counter++;
   }
-  m_tree.push_back(RRTNode{m_state->goal_point->north, m_state->goal_point->east, (int) m_tree.size()-1});
+  m_tree.push_back(RRTNode{m_state->goal_point->north, m_state->goal_point->east, static_cast<int>(m_tree.size()-1)});
   if (counter == m_settings->rrt->timeout)
     return false;
   else
@@ -203,11 +203,11 @@ bool RRTPlanner::expandTreeToGoal()
 
 std::vector<int> RRTPlanner::findPathToGoal()
 {
-  int current_node_idx{(int) m_tree.size()-1};
+  int current_node_idx{static_cast<int>(m_tree.size()-1)};
   std::vector<int> path_to_goal{current_node_idx};
   while (current_node_idx!=0)
   {
-    current_node_idx = m_tree[current_node_idx].getParent();
+    current_node_idx = m_tree[static_cast<unsigned int>(current_node_idx)].getParent();
     path_to_goal.insert(path_to_goal.begin(),current_node_idx);
   }
   return path_to_goal;
@@ -215,19 +215,20 @@ std::vector<int> RRTPlanner::findPathToGoal()
 
 std::vector<int> RRTPlanner::smoothPath(std::vector<int> path)
 {
-  int current_index{0};
-  std::vector<int> smoothed_path{current_index};
+  unsigned int current_index{0};
+  std::vector<unsigned int> path2(path.begin(), path.end());
+  std::vector<int> smoothed_path{static_cast<int>(current_index)};
   while (smoothed_path.back() != path.back())
   {
-    for (int i{(int) path.size()-1}; i>current_index; i--)
+    for (unsigned int i{static_cast<unsigned int>(path.size()-1)}; i>current_index; i--)
     {
-      RRTNode current_node{m_tree[path[current_index]]};
-      RRTNode target_node{m_tree[path[i]]};
+      RRTNode current_node{m_tree[path2[current_index]]};
+      RRTNode target_node{m_tree[path2[i]]};
       if (checkForLineCollision(std::vector<double>{current_node.getX(),current_node.getY()},
                                 std::vector<double>{target_node.getX(),target_node.getY()}) == false)
       {
         current_index = i;
-        smoothed_path.push_back(path[current_index]);
+        smoothed_path.push_back(path[static_cast<unsigned int>(current_index)]);
         break;
       }
     }
@@ -242,21 +243,20 @@ std::vector<std::vector<double>> RRTPlanner::getSmoothedPath()
   std::vector<std::vector<double>> smoothed_path_points{};
   for (int idx: path_indicies)
   {
-    smoothed_path_points.push_back(std::vector<double>{m_tree[idx].getX(),m_tree[idx].getY()});
+    smoothed_path_points.push_back(std::vector<double>{m_tree[static_cast<unsigned int>(idx)].getX(),m_tree[static_cast<unsigned int>(idx)].getY()});
   }
   return smoothed_path_points;
 }
 
 bool RRTPlanner::checkPathForCollisions(const std::vector<Waypoint> &waypoints)
 {
-  for (int i{0}; i<waypoints.size()-1; i++)
+  for (unsigned int i{0}; i<static_cast<unsigned int>(waypoints.size()-1); i++)
   {
     std::vector<double> point1{waypoints[i].getNorth(), waypoints[i].getEast()};
     std::vector<double> point2{waypoints[i+1].getNorth(), waypoints[i+1].getEast()};
     if (checkForLineCollision(point1, point2))
     {
       return true;
-      break;
     }
   }
   return false;

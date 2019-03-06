@@ -9,7 +9,7 @@ class ObstacleMap
 public:
   ObstacleMap();
   void setValues(const nav_msgs::OccupancyGrid &obstacles);
-  void setValues(int width, int height, double resolution,
+  void setValues(unsigned int width, unsigned int height, float resolution,
                               std::vector<double> position,
                               std::vector<double> orientation,
                               std::vector<signed char> obstacle_data);
@@ -22,9 +22,9 @@ public:
   void setUnknownAsObstacles(bool new_value);
 
 private:
-  int m_width{0};
-  int m_height{0};
-  double m_resolution{0.5};
+  unsigned int m_width{0};
+  unsigned int m_height{0};
+  float m_resolution{0.5};
   std::vector<double> m_position{0,0,0};
   std::vector<double> m_position_2d{0,0};
   std::vector<double> m_orientation{0,0,0,1};

@@ -26,7 +26,7 @@ void ObstacleMap::setValues(const nav_msgs::OccupancyGrid &obstacles)
   setObstacleLocations();
 }
 
-void ObstacleMap::setValues(int width, int height, double resolution,
+void ObstacleMap::setValues(unsigned int width, unsigned int height, float resolution,
                             std::vector<double> position,
                             std::vector<double> orientation,
                             std::vector<signed char> obstacle_data)
@@ -47,14 +47,14 @@ std::vector<std::vector<signed char>> ObstacleMap::get2DGridMap()
   grid_map_2d.resize(m_height);
   if (m_height > 0)
   {
-    for (int i{0}; i < m_height; i++)
+    for (unsigned int i{0}; i < m_height; i++)
     {
         grid_map_2d[i].resize(m_width);
     }
-    for (int i{0}; i < grid_map_1d.size(); i++)
+    for (unsigned int i{0}; i < grid_map_1d.size(); i++)
     {
-        int row = i / m_width;
-        int col = i %m_width;
+        unsigned int row = i / m_width;
+        unsigned int col = i %m_width;
         grid_map_2d[row][col] = grid_map_1d[i];
     }
   }
@@ -66,22 +66,22 @@ std::vector<std::vector<int>> ObstacleMap::getObstacleIndicies()
   signed char confidence_thresh{90};
   std::vector<std::vector<signed char>> grid_2d{get2DGridMap()};
   std::vector<std::vector<int>> obstacle_locations{};
-  for (int row{0}; row<this->m_height; row++)
+  for (unsigned int row{0}; row<this->m_height; row++)
   {
-    for (int column{0}; column<this->m_width; column++)
+    for (unsigned int column{0}; column<this->m_width; column++)
     {
       if (m_unknown_as_obstacles == true)
       {
         if (grid_2d[row][column]!=0)
         {
-          obstacle_locations.push_back(std::vector<int>{(int) row,(int) column});
+          obstacle_locations.push_back(std::vector<int>{static_cast<int>(row),static_cast<int>(column)});
         }
       }
       else
       {
         if (grid_2d[row][column]>confidence_thresh)
         {
-          obstacle_locations.push_back(std::vector<int>{(int) row,(int) column});
+          obstacle_locations.push_back(std::vector<int>{static_cast<int>(row),static_cast<int>(column)});
         }
       }
     }
@@ -93,7 +93,7 @@ void ObstacleMap::setObstacleLocations()
 {
   std::vector<std::vector<double>> locations{};
   std::vector<std::vector<double>> double_indicies{convertIntVector2DoubleVector(getObstacleIndicies())};
-  locations = scaleVector(double_indicies,m_resolution);
+  locations = scaleVector(double_indicies,static_cast<double>(m_resolution));
   locations = translateVector(locations,convertPointNWU2Grid(m_position_2d));
   locations = rotateVector(locations, m_yaw);
   m_obstacle_locations = locations;
