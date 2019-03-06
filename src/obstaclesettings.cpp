@@ -4,8 +4,8 @@
 
 ObstacleSettings::ObstacleSettings(QWidget *parent, Settings *settings) :
   QDialog{parent},
-  m_settings{settings},
-  ui{new Ui::ObstacleSettings}
+  ui{new Ui::ObstacleSettings},
+  m_settings{settings}
 {
   ui->setupUi(this);
   ui->buffer_spinbox->setValue(m_settings->obstacle->buffer_size);

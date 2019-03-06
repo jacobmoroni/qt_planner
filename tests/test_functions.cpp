@@ -5,9 +5,9 @@
 
 bool expectNearDoubleVector(std::vector<std::vector<double>> vec1, std::vector<std::vector<double>> vec2, double threshold)
 {
-  for (int i{0}; i<vec1.size(); i++)
+  for (unsigned int i{0}; i<static_cast<unsigned int>(vec1.size()); i++)
   {
-    if (abs(vec1[i][0]-vec2[i][0]) > threshold || abs(vec1[i][1]-vec2[i][1]) > threshold)
+    if (std::abs(vec1[i][0]-vec2[i][0]) > threshold || std::abs(vec1[i][1]-vec2[i][1]) > threshold)
       return false;
   }
   return true;
@@ -15,9 +15,9 @@ bool expectNearDoubleVector(std::vector<std::vector<double>> vec1, std::vector<s
 
 bool expectNearSingleVector(std::vector<double> vec1, std::vector<double> vec2, double threshold)
 {
-  for (int i{0}; i<vec1.size(); i++)
+  for (unsigned int i{0}; i<static_cast<unsigned int>(vec1.size()); i++)
   {
-    if (abs(vec1[0]-vec2[0]) > threshold || abs(vec1[1]-vec2[1]) > threshold)
+    if (std::abs(vec1[0]-vec2[0]) > threshold || std::abs(vec1[1]-vec2[1]) > threshold)
       return false;
   }
   return true;

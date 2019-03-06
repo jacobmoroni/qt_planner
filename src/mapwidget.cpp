@@ -68,7 +68,7 @@ void MapWidget::mouseReleaseEvent(QMouseEvent* event)
   unsigned int button{this->getMouseButtonNumber(event)};
   if (button==1)
   {
-    helper->setGoalPointFromPixel(std::vector<double>{(double) event->x(), (double) event->y()});
+    helper->setGoalPointFromPixel(std::vector<double>{static_cast<double>(event->x()), static_cast<double>(event->y())});
     emit goalUpdated();
   }
 }

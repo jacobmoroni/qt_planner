@@ -5,6 +5,8 @@
 #include "test_functions.h"
 #include <vector>
 #include <tuple>
+#pragma clang diagnostic ignored "-Wweak-vtables"
+
 
 class TestObstacleMap : public ::testing::Test
 {
@@ -15,7 +17,7 @@ public:
   {
     test_grid_msg.header.frame_id = "map";
     test_grid_msg.header.seq = 53;
-    test_grid_msg.info.resolution = 0.05;
+    test_grid_msg.info.resolution = 0.05f;
     test_grid_msg.info.width = 10;
     test_grid_msg.info.height = 20;
     test_grid_msg.info.origin.position.x = 1;

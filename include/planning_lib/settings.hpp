@@ -1,5 +1,6 @@
 #ifndef SETTINGS_HPP
 #define SETTINGS_HPP
+#pragma clang diagnostic ignored "-Wpadded"
 
 #include <string>
 
@@ -8,8 +9,8 @@ struct WaypointManagerParams
     WaypointManagerParams() {}
     double position_threshold{0.5};
     double yaw_threshold{0.523599};
-    bool threshold_2d{true};
     double check_path_frequency{5};
+    bool threshold_2d{true};
 };
 
 struct ObstacleParams

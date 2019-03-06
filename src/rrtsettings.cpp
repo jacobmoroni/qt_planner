@@ -3,9 +3,9 @@
 #include "ui_rrtsettings.h"
 
 RRTSettings::RRTSettings(QWidget *parent, Settings *settings) :
-  m_settings{settings},
   QDialog{parent},
-  ui{new Ui::RRTSettings}
+  ui{new Ui::RRTSettings},
+  m_settings{settings}
 {
   ui->setupUi(this);
   ui->boundary_buffer_spinbox->setToolTip("Buffer size around obstacles where the planner is allowed to search");

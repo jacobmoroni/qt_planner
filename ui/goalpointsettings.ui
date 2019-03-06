@@ -6,74 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1029</width>
-    <height>47</height>
+    <width>1032</width>
+    <height>76</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="8">
-    <widget class="QLabel" name="down_label">
-     <property name="text">
-      <string>Down</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="13">
-    <widget class="QLabel" name="yaw_label">
-     <property name="text">
-      <string>Yaw</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="12">
-    <spacer name="horizontalSpacer_3">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="north_label">
-     <property name="text">
-      <string>North</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="4">
-    <widget class="QLabel" name="east_label">
-     <property name="text">
-      <string>East</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="18">
-    <widget class="QPushButton" name="goalButton">
-     <property name="toolTip">
-      <string>Send goal to path planner</string>
-     </property>
-     <property name="statusTip">
-      <string notr="true">Send goal to path planner</string>
-     </property>
-     <property name="text">
-      <string>Send Goal</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="2">
     <spacer name="horizontalSpacer">
      <property name="orientation">
@@ -100,6 +40,19 @@
      </property>
     </spacer>
    </item>
+   <item row="1" column="12">
+    <spacer name="horizontalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
    <item row="1" column="16">
     <spacer name="horizontalSpacer_4">
      <property name="orientation">
@@ -113,22 +66,31 @@
      </property>
     </spacer>
    </item>
-   <item row="1" column="5">
-    <widget class="QDoubleSpinBox" name="eastSpinBox">
-     <property name="focusPolicy">
-      <enum>Qt::WheelFocus</enum>
+   <item row="1" column="8">
+    <widget class="QLabel" name="down_label">
+     <property name="text">
+      <string>Down</string>
      </property>
-     <property name="keyboardTracking">
-      <bool>true</bool>
+    </widget>
+   </item>
+   <item row="1" column="13">
+    <widget class="QLabel" name="yaw_label">
+     <property name="text">
+      <string>Yaw</string>
      </property>
-     <property name="minimum">
-      <double>-100.000000000000000</double>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="north_label">
+     <property name="text">
+      <string>North</string>
      </property>
-     <property name="maximum">
-      <double>100.000000000000000</double>
-     </property>
-     <property name="singleStep">
-      <double>0.500000000000000</double>
+    </widget>
+   </item>
+   <item row="1" column="4">
+    <widget class="QLabel" name="east_label">
+     <property name="text">
+      <string>East</string>
      </property>
     </widget>
    </item>
@@ -177,6 +139,58 @@
      </property>
      <property name="singleStep">
       <double>15.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="18">
+    <widget class="QPushButton" name="goalButton">
+     <property name="toolTip">
+      <string>Send goal to path planner</string>
+     </property>
+     <property name="statusTip">
+      <string notr="true">Send goal to path planner</string>
+     </property>
+     <property name="text">
+      <string>Send Goal</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="5">
+    <widget class="QDoubleSpinBox" name="eastSpinBox">
+     <property name="focusPolicy">
+      <enum>Qt::WheelFocus</enum>
+     </property>
+     <property name="keyboardTracking">
+      <bool>true</bool>
+     </property>
+     <property name="minimum">
+      <double>-100.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.500000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="9">
+    <widget class="QLabel" name="current_waypoint_label">
+     <property name="text">
+      <string>No Waypoint Yet</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="9" colspan="10">
+    <widget class="QLabel" name="current_position">
+     <property name="text">
+      <string>No Position Info Yet</string>
      </property>
     </widget>
    </item>

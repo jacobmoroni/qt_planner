@@ -54,9 +54,9 @@ MainWindow::~MainWindow()
 void MainWindow::setupManualUi()
 {
   mapwidget = new MapWidget(this, helper, state);
+  waypoint_manager = new WaypointManager(settings, state);
   goal_settings = new GoalPointSettings(this, state);
   rrt_planner = new RRTPlanner(settings, state);
-  waypoint_manager = new WaypointManager(settings, state);
   createZoomToolbar();
   createNavigationToolbar();
   createRosToolbar();
@@ -71,6 +71,8 @@ void MainWindow::setupTimer()
   QTimer *timer{new QTimer(this)};
   connect(timer, &QTimer::timeout,
           mapwidget, &MapWidget::animate);
+  connect(timer, &QTimer::timeout,
+          goal_settings, &GoalPointSettings::showCurrentPosition);
   timer->start(50);
 }
 
@@ -509,7 +511,10 @@ void MainWindow::moveToNextWaypoint()
 
 void MainWindow::getCurrentWaypoint()
 {
-  qnode->updateWaypoint(waypoint_manager->getCurrentWaypoint());
+  Waypoint current_waypoint{waypoint_manager->getCurrentWaypoint()};
+  state->current_waypoint = &current_waypoint;
+  qnode->updateWaypoint(current_waypoint);
+  goal_settings->showCurrentWaypoint();
 }
 
 void MainWindow::setGoalReached()

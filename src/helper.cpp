@@ -17,22 +17,22 @@ Helper::Helper(Settings *settings, State *state):
   background = QBrush(Qt::white);
   obstacle_brush = QBrush(Qt::black);
   obstacle_pen = QPen(Qt::black);
-  obstacle_pen.setWidth(.1);
+  obstacle_pen.setWidth(0);
   buffer_brush = QBrush(QColor(100,100,100));
   buffer_pen = QPen(QColor(100,100,100));
-  buffer_pen.setWidth(.1);
+  buffer_pen.setWidth(0);
   robot_brush = QBrush(Qt::green);
   robot_pen = QPen(Qt::black);
-  robot_pen.setWidth(.1);
+  robot_pen.setWidth(0);
   goal_brush = QBrush(Qt::red);
   goal_pen = QPen(Qt::black);
-  goal_pen.setWidth(.1);
+  goal_pen.setWidth(0);
   path_brush = QBrush(Qt::blue);
   path_pen = QPen(Qt::blue);
-  path_pen.setWidth(.1);
+  path_pen.setWidth(0);
   boundary_brush = QBrush(Qt::NoBrush);
   boundary_pen = QPen(Qt::gray);
-  boundary_pen.setWidth(.1);
+  boundary_pen.setWidth(0);
   boundary_pen.setStyle(Qt::DotLine);
   text_pen = QPen(QColor(100,100,100));
   text_font.setPixelSize(50);
@@ -72,7 +72,7 @@ void Helper::paintRobotLocation(QPainter *painter)
   robot_indicator = translateVector(robot_indicator,std::vector<double>{m_state->position->north, m_state->position->east});
   robot_indicator_pixel = convertVectorNED2Pixel(robot_indicator);
 
-  for (int i{0}; i<robot_indicator_pixel.size(); i++)
+  for (unsigned int i{0}; i<static_cast<unsigned int>(robot_indicator_pixel.size()); i++)
   {
     indicator[i] = QPointF(robot_indicator_pixel[i][0], robot_indicator_pixel[i][1]);
   }
@@ -90,7 +90,7 @@ void Helper::paintGoal(QPainter *painter)
   goal_indicator_ned = rotateVector(goal_indicator_ned, m_state->goal_point->yaw);
   goal_indicator_ned = translateVector(goal_indicator_ned, goal_point_pixel);
   std::vector<std::vector<double>> goal_indicator_pixel{goal_indicator_ned};
-  for (int i{0}; i<goal_indicator_pixel.size(); i++)
+  for (unsigned int i{0}; i<static_cast<unsigned int>(goal_indicator_pixel.size()); i++)
   {
     indicator[i] = QPointF(goal_indicator_pixel[i][0], goal_indicator_pixel[i][1]);
   }
@@ -111,7 +111,7 @@ void Helper::paintPath(QPainter *painter)
     painter->drawEllipse(QPointF{path_pixel[1][0], path_pixel[1][1]}, .1,.1);
     painter->drawLine(QPointF{robot_location[0],robot_location[1]}, QPointF{path_pixel[1][0], path_pixel[1][1]});
   }
-  for (int i{1}; i<path_pixel.size()-1; i++)
+  for (unsigned int i{1}; i<static_cast<unsigned int>(path_pixel.size()-1); i++)
   {
     painter->drawEllipse(QPointF{path_pixel[i+1][0], path_pixel[i+1][1]}, .1,.1);
     painter->drawLine(QPointF{path_pixel[i][0], path_pixel[i][1]}, QPointF{path_pixel[i+1][0], path_pixel[i+1][1]});

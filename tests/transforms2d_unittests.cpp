@@ -3,6 +3,7 @@
 #include <vector>
 #include "transforms2d.hpp"
 #include "test_functions.h"
+#pragma clang diagnostic ignored "-Wweak-vtables"
 
 class TestTransformations2d : public ::testing::Test
 {

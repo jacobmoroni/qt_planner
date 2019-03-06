@@ -1,14 +1,18 @@
 #include "goalpointsettings.hpp"
 #include "settings.hpp"
 #include "state.hpp"
+#include "waypoint.hpp"
 #include "ui_goalpointsettings.h"
 
 GoalPointSettings::GoalPointSettings(QWidget *parent, State *state) :
   QWidget{parent},
-  m_state{state},
-  ui{new Ui::GoalPointSettings}
+  ui{new Ui::GoalPointSettings},
+  m_state{state}
 {
   ui->setupUi(this);
+  showCurrentWaypoint();
+  m_state->goal_point->down = m_state->current_waypoint->getDown();
+  ui->downSpinBox->setValue(m_state->goal_point->down);
 }
 
 GoalPointSettings::~GoalPointSettings()
@@ -72,4 +76,30 @@ void GoalPointSettings::clearGoal()
   {
     ui->goalButton->toggle();
   }
+}
+
+void GoalPointSettings::showCurrentWaypoint()
+{
+  std::stringstream current_waypoint_str;
+  current_waypoint_str.precision(3);
+  current_waypoint_str<<"Current Waypoint: [";
+  current_waypoint_str<<m_state->current_waypoint->getNorth();
+  current_waypoint_str<<", "<<m_state->current_waypoint->getEast();
+  current_waypoint_str<<", "<<m_state->current_waypoint->getDown();
+  current_waypoint_str<<", "<<m_state->current_waypoint->getYaw()<<"]";
+
+  ui->current_waypoint_label->setText(QString(current_waypoint_str.str().c_str()));
+}
+
+void GoalPointSettings::showCurrentPosition()
+{
+  std::stringstream current_position_str;
+  current_position_str.precision(3);
+  current_position_str<<"Current Position Estimate: [";
+  current_position_str<<m_state->position->north;
+  current_position_str<<", "<<m_state->position->east;
+  current_position_str<<", "<<m_state->position->down;
+  current_position_str<<", "<<m_state->position->yaw<<"]";
+
+  ui->current_position->setText(QString(current_position_str.str().c_str()));
 }
