@@ -19,7 +19,7 @@ rrt: {
 }
 
 ros: {
-  grid_map_topic: "/rtabmap/grid_map",
+  grid_map_topic: "leo/rtabmap/grid_map",
   tf_from: "/world",
   tf_to: "/base_link",
   tf_reference_frame: 0 #0=NED, 1=NWU
