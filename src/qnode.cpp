@@ -159,11 +159,11 @@ void QNode::loadParametersOnStart()
 bool QNode::initROSCommunication()
 {
   ros::init(init_argc,init_argv,"qt_planner");
-  if (robot_listener !=nullptr)
-  {
-    delete robot_listener;
-    robot_listener = nullptr;
-  }
+  //if (robot_listener !=nullptr)
+  //{
+    //delete robot_listener;
+    //robot_listener = nullptr;
+  //}
 
   if ( ! ros::master::check() )
   {
