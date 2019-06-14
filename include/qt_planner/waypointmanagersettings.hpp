@@ -21,8 +21,8 @@ private slots:
   void on_thresholdSpinBox_valueChanged(double arg);
   void on_yawThresholdSpinBox_valueChanged(double arg);
   void on_threshold2DCheckbox_toggled(bool checked);
-
-  void on_pathCheckFrequencySpinBox_valueChanged(double arg);
+  void on_pathCheckFrequencySpinBox_valueChanged(double arg);  
+  void on_presetWPCheckBox_toggled(bool checked);
 
 private:
   Ui::WaypointManagerSettings *ui;

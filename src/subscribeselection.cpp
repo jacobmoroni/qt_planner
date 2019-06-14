@@ -2,23 +2,29 @@
 #include "settings.hpp"
 #include "ui_subscribeselection.h"
 
-void SubscribeSelection::addGridmapTopicsToComboBox(std::string gridmap_topics)
+void SubscribeSelection::addTopicsToComboBox(std::string gridmap_topics, std::string waypoint_topics)
 {
   QString str = QString::fromUtf8(gridmap_topics.c_str());
   QStringList list = str.split(",");
   m_settings->ros->grid_map_topic = list.at(0).toUtf8().constData();
   ui->comboBox->addItems(list);
+
+  QString str2 = QString::fromUtf8(waypoint_topics.c_str());
+  QStringList list2 = str2.split(",");
+  m_settings->ros->waypoint_topic = list2.at(0).toUtf8().constData();
+  ui->waypointComboBox->addItems(list2);
 }
 
 SubscribeSelection::SubscribeSelection(QWidget *parent,
                                        std::string gridmap_topics,
+                                       std::string waypoint_topics,
                                        Settings *settings) :
   QDialog{parent},
   ui{new Ui::SubscribeSelection},
   m_settings{settings}
 {
   ui->setupUi(this);
-  addGridmapTopicsToComboBox(gridmap_topics);
+  addTopicsToComboBox(gridmap_topics, waypoint_topics);
   ui->tf_from->setText(QString{QString::fromUtf8(settings->ros->tf_from.c_str())});
   ui->tf_to->setText(QString{QString::fromUtf8(settings->ros->tf_to.c_str())});
 }
@@ -56,4 +62,9 @@ void SubscribeSelection::on_buttonBox_rejected()
 void SubscribeSelection::on_buttonBox_accepted()
 {
   QDialog::accept();
+}
+
+void SubscribeSelection::on_waypointComboBox_activated(const QString &arg)
+{
+   m_settings->ros->waypoint_topic = arg.toUtf8().constData();
 }

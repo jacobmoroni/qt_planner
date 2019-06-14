@@ -9,6 +9,7 @@
 #include <QStringListModel>
 #include <std_msgs/String.h>
 #include <nav_msgs/OccupancyGrid.h>
+#include <std_msgs/Float32MultiArray.h>
 #include <vector>
 #include <tf/transform_listener.h>
 #include "rosflight_msgs/Command.h"
@@ -34,16 +35,19 @@ public:
 
   QNode(int argc, char **argv, Settings *settings, State *state);
   virtual ~QNode();
-  bool initROSCommunication(std::string grid_map_topic);
+  bool initROSCommunication();
   void run();
   void gridMapCallback(const nav_msgs::OccupancyGrid &msg);
+  void waypointCallback(const std_msgs::Float32MultiArray &msg);
   QStringListModel* loggingModel() {return &logging_model;}
   void log(const LogLevel &level, const std::string &msg);
   std::string getOccupancyGridTopics();
+  std::string getMultiArrayTopics();
   void updateRobotTransform();
   void updateWaypoint(Waypoint current_waypoint);
   void setParametersFromFile(std::string param_file);
   void saveParametersToFile(std::string param_file);
+  void loadParametersOnStart();
 
 signals:
   void loggingUpdated();
@@ -57,6 +61,7 @@ private:
   char** init_argv;
   ros::Publisher waypoint_publisher;
   ros::Subscriber map_subscriber;
+  ros::Subscriber waypoint_subscriber;
   QStringListModel logging_model;
   tf::TransformListener *robot_listener{nullptr};
   Settings *m_settings;

@@ -6,32 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>313</width>
-    <height>213</height>
+    <width>318</width>
+    <height>197</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Waypoint Manager Settings</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="6" column="1">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QCheckBox" name="threshold2DCheckbox">
-     <property name="text">
-      <string>2D Threshold</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
+   <item row="1" column="1">
     <widget class="QDoubleSpinBox" name="thresholdSpinBox">
      <property name="maximum">
       <double>1.500000000000000</double>
@@ -44,14 +27,17 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label">
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Position Threshold</string>
+      <string>Path Check Frequency</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
+   <item row="3" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
       <string>Yaw Threshold (Degrees)</string>
@@ -61,7 +47,44 @@
      </property>
     </widget>
    </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Position Threshold</string>
+     </property>
+    </widget>
+   </item>
    <item row="4" column="1">
+    <widget class="QDoubleSpinBox" name="pathCheckFrequencySpinBox">
+     <property name="minimum">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>10.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>1.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QCheckBox" name="threshold2DCheckbox">
+     <property name="text">
+      <string>2D Threshold</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
     <widget class="QDoubleSpinBox" name="yawThresholdSpinBox">
      <property name="maximum">
       <double>180.000000000000000</double>
@@ -74,26 +97,10 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="label_3">
+   <item row="0" column="0" colspan="2">
+    <widget class="QCheckBox" name="presetWPCheckBox">
      <property name="text">
-      <string>Path Check Frequency</string>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="QDoubleSpinBox" name="pathCheckFrequencySpinBox">
-     <property name="minimum">
-      <double>0.100000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>10.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>1.000000000000000</double>
+      <string>Use Preset Waypoints</string>
      </property>
     </widget>
    </item>

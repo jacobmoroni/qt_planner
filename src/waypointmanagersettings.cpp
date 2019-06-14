@@ -43,3 +43,9 @@ void WaypointManagerSettings::on_pathCheckFrequencySpinBox_valueChanged(double a
 {
   m_settings->waypoint_manager->check_path_frequency = arg;
 }
+
+
+void WaypointManagerSettings::on_presetWPCheckBox_toggled(bool checked)
+{
+  m_settings->waypoint_manager->preset = checked;
+}

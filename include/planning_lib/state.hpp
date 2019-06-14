@@ -30,12 +30,14 @@ struct State {
     delete obstacles;
     delete goal_point;
     delete current_waypoint;
+//    delete waypoints;
   }
 
   Position *position{new Position};
   ObstacleMap *obstacles{new ObstacleMap};
   GoalPoint *goal_point{new GoalPoint};
   Waypoint *current_waypoint{new Waypoint};
+  std::vector<std::vector<double>> waypoint_list;
 };
 
 #endif // STATE_HPP

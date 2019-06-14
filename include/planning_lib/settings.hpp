@@ -11,6 +11,7 @@ struct WaypointManagerParams
     double yaw_threshold{0.523599};
     double check_path_frequency{5};
     bool threshold_2d{true};
+    bool preset{true};
 };
 
 struct ObstacleParams
@@ -35,9 +36,11 @@ struct ROSParams
     ROSParams() {}
     enum ReferenceFrame{NED, NWU};
 
-    std::string grid_map_topic{"/rtabmap/grid_map"};
+    std::string grid_map_topic{"rtabmap/grid_map"};
+    std::string waypoint_topic{"raw_waypoints"};
     std::string tf_from{"/world"};
     std::string tf_to{"/base_link"};
+    std::string mav_name{"agent"};
     int tf_reference_frame{NED};
 };
 

@@ -35,7 +35,7 @@ MainWindow::MainWindow(int argc, char **argv, QWidget *parent) :
   ui->setupUi(this);
   setWindowTitle(tr("Obstacle Map"));
   setupManualUi();
-  qnode->initROSCommunication(settings->ros->grid_map_topic);
+  qnode->initROSCommunication();
   setupTimer();
   setupSignalsAndSlots();
 }
@@ -330,10 +330,11 @@ QAction* MainWindow::createROSAction()
 void MainWindow::updateROSSubscription()
 {
   std::string gridmap_topics{qnode->getOccupancyGridTopics()};
-  SubscribeSelection* ros_sub = new SubscribeSelection(this, gridmap_topics, settings);
+  std::string waypoint_topics{qnode->getMultiArrayTopics()};
+  SubscribeSelection* ros_sub = new SubscribeSelection(this, gridmap_topics, waypoint_topics, settings);
   if (ros_sub->exec()==QDialog::Accepted)
   {
-     qnode->initROSCommunication(settings->ros->grid_map_topic);
+     qnode->initROSCommunication();
   }
 }
 
