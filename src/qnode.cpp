@@ -93,35 +93,32 @@ void QNode::loadParametersFromROS()
 {
   ros::NodeHandle parameters{"~"};
 
-  if (!ros::param::get("waypoint_manager/position_threshold",m_settings->waypoint_manager->position_threshold))
+  if (!ros::param::get("ros/mav_name",m_settings->ros->mav_name))
   {
     log(Warn,"Failed to load paramaters");
   }
   else
   {
-    parameters.param<double>("waypoint_manager/yaw_threshold",m_settings->waypoint_manager->yaw_threshold,0.523599);
-    parameters.param<bool>("waypoint_manager/threshold_2d",m_settings->waypoint_manager->threshold_2d,true);
-    parameters.param<double>("waypoint_manager/check_path_frequency",m_settings->waypoint_manager->check_path_frequency,5);
-    parameters.param<bool>("waypoint_manager/preset", m_settings->waypoint_manager->preset,false);
-
-    parameters.param<double>("obstacles/buffer_size",m_settings->obstacle->buffer_size,0.8);
-    parameters.param<double>("obstacles/obstacle_size",m_settings->obstacle->obstacle_size,0.1);
-    parameters.param<bool>("obstacles/unknown_as_obstacles",m_settings->obstacle->unknown_as_obstacles,false);
-
-    parameters.param<int>("rrt/timeout",m_settings->rrt->timeout, 5000);
-    parameters.param<int>("rrt/goal_sample_rate",m_settings->rrt->goal_sample_rate, 50);
-    parameters.param<double>("rrt/expand_distance",m_settings->rrt->expand_distance, 0.5);
-    parameters.param<double>("rrt/boundary_buffer",m_settings->rrt->boundary_buffer, 2);
-
-    parameters.param<std::string>("ros/grid_map_topic",m_settings->ros->grid_map_topic,"/rtabmap/grid_map");
-    parameters.param<std::string>("ros/waypoint_topic",m_settings->ros->waypoint_topic,"/raw_waypoints");
-    parameters.param<std::string>("ros/tf_from",m_settings->ros->tf_from,"/world");
-    parameters.param<std::string>("ros/tf_to",m_settings->ros->tf_to,"/base_link");
-    parameters.param<std::string>("ros/mav_name",m_settings->ros->mav_name,"agent");
-    parameters.param<int>("ros/tf_reference_frame",m_settings->ros->tf_reference_frame, m_settings->ros->NED);
+    ros::param::get("waypoint_manager/position_threshold",m_settings->waypoint_manager->position_threshold);
+    ros::param::get("waypoint_manager/yaw_threshold",m_settings->waypoint_manager->yaw_threshold);
+    ros::param::get("waypoint_manager/threshold_2d",m_settings->waypoint_manager->threshold_2d);
+    ros::param::get("waypoint_manager/check_path_frequency",m_settings->waypoint_manager->check_path_frequency);
+    ros::param::get("waypoint_manager/preset", m_settings->waypoint_manager->preset);
+    ros::param::get("obstacles/buffer_size",m_settings->obstacle->buffer_size);
+    ros::param::get("obstacles/obstacle_size",m_settings->obstacle->obstacle_size);
+    ros::param::get("obstacles/unknown_as_obstacles",m_settings->obstacle->unknown_as_obstacles);
+    ros::param::get("rrt/timeout",m_settings->rrt->timeout);
+    ros::param::get("rrt/goal_sample_rate",m_settings->rrt->goal_sample_rate);
+    ros::param::get("rrt/expand_distance",m_settings->rrt->expand_distance);
+    ros::param::get("rrt/boundary_buffer",m_settings->rrt->boundary_buffer);
+    ros::param::get("ros/grid_map_topic",m_settings->ros->grid_map_topic);
+    ros::param::get("ros/waypoint_topic",m_settings->ros->waypoint_topic);
+    ros::param::get("ros/tf_from",m_settings->ros->tf_from);
+    ros::param::get("ros/tf_to",m_settings->ros->tf_to);
+    ros::param::get("ros/tf_reference_frame",m_settings->ros->tf_reference_frame);
 
     std::stringstream log_msg;
-    log_msg<<"Loaded parameters from ros";
+    log_msg<<"Loaded parameters from ros for " << m_settings->ros->mav_name;
     log(Info, log_msg.str());
   }
 }
@@ -314,7 +311,9 @@ void QNode::broadcastCurrentWaypoint()
   transform.setOrigin(tf::Vector3{m_waypoint.getNorth(), m_waypoint.getEast(), m_waypoint.getDown()});
   transform.setRotation(tf::createQuaternionFromYaw(m_waypoint.getYaw()));
   std::stringstream waypoint_frame;
+  std::stringstream map_frame;
   waypoint_frame<<m_settings->ros->mav_name<<"/current_waypoint";
-  broadaster.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "/world", waypoint_frame.str()));
+  map_frame<<m_settings->ros->mav_name<<"/map_ned";
+  broadaster.sendTransform(tf::StampedTransform(transform, ros::Time::now(), map_frame.str(), waypoint_frame.str()));
 }
 }  // namespace qt_planner

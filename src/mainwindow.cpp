@@ -13,6 +13,7 @@
 #include "state.hpp"
 #include "qnode.hpp"
 #include "helper.hpp"
+#include <sstream>
 #include <QGridLayout>
 #include <QTimer>
 #include <QToolBar>
@@ -33,11 +34,13 @@ MainWindow::MainWindow(int argc, char **argv, QWidget *parent) :
   qnode = new QNode{argc, argv, settings, state};
   helper = new Helper{settings, state};
   ui->setupUi(this);
-  setWindowTitle(tr("Obstacle Map"));
-  setupManualUi();
   qnode->initROSCommunication();
+  setupManualUi();
   setupTimer();
   setupSignalsAndSlots();
+  std::stringstream title;
+  title << "Obstacle Map: "<< settings->ros->mav_name;
+  setWindowTitle(tr(title.str().c_str()));
 }
 
 MainWindow::~MainWindow()
