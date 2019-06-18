@@ -47,7 +47,7 @@ public:
   void updateWaypoint(Waypoint current_waypoint);
   void setParametersFromFile(std::string param_file);
   void saveParametersToFile(std::string param_file);
-  void loadParametersOnStart();
+  void loadParametersFromROS();
 
 signals:
   void loggingUpdated();
